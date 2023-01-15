@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace的值是对应接口的全接口名-->
+<mapper namespace="com.it.emall.mapper.GoodsCategoryMapper">
+
+    <!--id的值是对应方法的方法名-->
+    <select id="selectCategoryList" resultType="goodsCategory">
+        select * from litemall_category
+        where level = "L1"
+    </select>
+
+    <select id="selectChildrenCategoryByPid" resultType="goodsCategory" parameterType="integer">
+        select * from litemall_category
+        where pid = #{pid}
+    </select>
+
+    <insert id="insertCategory" parameterType="goodsCategory">
+        insert into litemall_category
+        values(null,#{name},#{keywords},#{desc},#{pid},#{iconUrl},#{picUrl},#{level},
+        #{sortOrder},#{addTime},#{updateTime},#{deleted})
+    </insert>
+
+    <update id="updateCategory" parameterType="goodsCategory">
+        update litemall_category
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="keywords != null and keywords != ''">
+                keywords = #{keywords},
+            </if>
+            <if test="desc != null and desc != ''">
+                `desc` = #{desc},
+            </if>
+            <if test="pid != null and pid != ''">
+                pid = #{pid},
+            </if>
+            <if test="iconUrl != null and iconUrl != ''">
+                icon_url = #{iconUrl},
+            </if>
+            <if test="picUrl != null and picUrl != ''">
+                pic_url = #{picUrl},
+            </if>
+            <if test="level != null and level != ''">
+                level = #{level},
+            </if>
+            <if test="sortOrder != null and sortOrder != ''">
+                sort_order = #{sortOrder},
+            </if>
+            <if test="addTime != null and addTime != ''">
+                add_time = #{addTime},
+            </if>
+            <if test="updateTime != null and updateTime != ''">
+                update_time = #{updateTime},
+            </if>
+            <if test="deleted != null and deleted != ''">
+                deleted = #{deleted},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteCategory" parameterType="integer">
+        delete from litemall_category
+        where id = #{id}
+    </delete>
+
+    <select id="selectCategoryById" parameterType="integer" resultType="goodsCategory">
+        select * from litemall_category
+        where id = #{id}
+    </select>
+</mapper>

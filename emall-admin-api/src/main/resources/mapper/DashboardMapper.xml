@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace的值是对应接口的全接口名-->
+<mapper namespace="com.it.emall.mapper.DashboardMapper">
+
+    <!--id的值是对应方法的方法名-->
+    <select id="selectDashboardData" resultType="com.it.emall.vo.DashboardVo">
+        select
+        count(1) goodsTotal,
+        (select count(1) from litemall_user) userTotal,
+        (select count(1) from litemall_goods_product) productTotal,
+        (select count(1) from litemall_order) orderTotal
+        from litemall_goods
+    </select>
+
+</mapper>

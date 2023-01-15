@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace的值是对应接口的全接口名-->
+<mapper namespace="com.it.emall.mapper.GoodsMapper">
+
+    <resultMap id="goodsMap" type="goods">
+    <!--映射字段，指定类型处理器-->
+        <result column="gallery" property="gallery" typeHandler="com.it.emall.mapper.handler.StringArrayTypeHandler" />
+    </resultMap>
+
+    <!--id的值是对应方法的方法名-->
+    <select id="selectGoodsList" resultMap="goodsMap">
+        select * from litemall_goods
+        <where>
+            <if test="goodsId != null">
+                and id = #{goodsId}
+            </if>
+
+            <if test="goodsSn != null">
+                and goods_sn = #{goodsSn}
+            </if>
+
+            <if test="name != null">
+                and name like concat('%',#{name},'%')
+            </if>
+        </where>
+    </select>
+
+</mapper>

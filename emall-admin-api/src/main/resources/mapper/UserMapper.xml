@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace的值是对应接口的全接口名-->
+<mapper namespace="com.it.emall.mapper.UserMapper">
+
+    <!--id的值是对应方法的方法名-->
+    <select id="selectUserByUsername" parameterType="string" resultType="AdminUser">
+        select * from litemall_admin
+        where username = #{username}
+    </select>
+
+    <select id="selectUserById" parameterType="integer" resultType="AdminUser">
+        select * from litemall_admin
+        where id = #{id}
+    </select>
+
+</mapper>
